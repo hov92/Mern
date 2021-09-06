@@ -1,39 +1,47 @@
-import data from './data.js';
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import productRouter from './routers/productRouter.js';
+import userRouter from './routers/userRouter.js';
+
+dotenv.config();
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 const port = process.env.PORT || 5000;
 
-app.get('/apo/products/:id', (req, res)=> {
-  const product= data.products.find( x => x._id=== req.params.id);
-  if(product){
-    res.send(product);
-  } else{
-    res.status(404).sendStatus({ message: 'Product Not Found'})
-  }
-})
 
-app.get('/api/products', (req, res) =>{
-  res.send(data.products)
-})
+app.use('/api/users', userRouter);
+
+app.use('api/products', productRouter);
 
 app.use(express.json());
 
 const connection_url =
   "mongodb+srv://hov92:ToE3X7Foigt4LIMY@cluster0.6eeic.mongodb.net/merndb?retryWrites=true&w=majority"
 
-mongoose.connect(connection_url)
+mongoose.connect(process.env.MONGODB_URL || connection_url, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useCreateIndex: true,
+})
+
 const connection = mongoose.connection;
+
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
-app.get("/",(req, res)=> res.status(200).send("I'm working"));
+app.get("/", (req, res) => res.status(200).send("I'm working"));
+
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message })
+})
 
 app.listen(port, () => {
-  console.log( 'Listening on port %s. Visit http://localhost:%s/ in your browser.',
-  port,
-  port);
+  console.log('Listening on port %s. Visit http://localhost:%s/ in your browser.',
+    port,
+    port);
 });
 
