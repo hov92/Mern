@@ -17,6 +17,9 @@ const port = process.env.PORT || 5000;
 app.use('/api/users', userRouter);
 app.use('api/products', productRouter);
 app.use('api/orders', orderRouter)
+app.get('/api/config/paypal', (req, res) => {
+  res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
+});
 
 app.use(express.json());
 
