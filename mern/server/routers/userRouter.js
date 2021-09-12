@@ -3,7 +3,7 @@ import expressAsyncHandler from 'express-async-handler'
 import data from '../data.js'
 import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs'
-import { generateToken } from '../utils.js';
+import { generateToken, isAdmin } from '../utils.js';
 
 const userRouter = express.Router();
 
@@ -77,4 +77,13 @@ userRouter.put('/profile', isAuth, expressAsyncHandler(async(req,res)=>{
         })
     }
 }))
+
+userRouter.get('/', isAuth, isAdmin, expressAsyncHandler(async (req, res) => {
+    const user = await User.find();
+    if (user) {
+        res.send(user)
+    } 
+}))
+
+
 export default userRouter;
