@@ -1,9 +1,11 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import path from 'path'
 import productRouter from './routers/productRouter.js';
 import userRouter from './routers/userRouter.js';
 import orderRouter from './routers/orderRouter.js';
+import uploadRouter from './routers/uploadRouter.js';
 
 dotenv.config();
 
@@ -13,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 5000;
 
-
+app.use('/api/uploads', uploadRouter)
 app.use('/api/users', userRouter);
 app.use('api/products', productRouter);
 app.use('api/orders', orderRouter)
@@ -37,6 +39,9 @@ const connection = mongoose.connection;
 connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
+
+const __dirname = path.resolve();
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
 app.get("/", (req, res) => res.status(200).send("I'm working"));
 
 app.use((err, req, res, next) => {
