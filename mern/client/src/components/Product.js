@@ -16,8 +16,14 @@ function Product(props) {
             <Rating rating={product.rating} numReviews={product.numReviews}>
                 
             </Rating>
-            <div className="price">
-                ${product.price}
+            <div className="row">
+
+            <div className="price">${product.price}</div>
+            <div>
+                <Link to={`/seller/${product.seller._id}`}>
+                    {product.seller.seller.name}
+                </Link>
+            </div>
             </div>
         </div>
     </div>

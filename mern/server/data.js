@@ -76,6 +76,6 @@ const data = {
             numReviews: 17,
             description: 'high quality product'
         },
-    ]
+    ],
 }
 export default data;
