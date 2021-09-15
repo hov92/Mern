@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { savePaymentMethod } from '../actions/cartActions';
 import CheckoutSteps from '../components/CheckoutSteps'
 
@@ -26,14 +26,14 @@ function PaymentMethodScreen(props) {
                 <div>
                     <div>
                         <input type="radio" id="paypal" value="Paypal" name="paymentMethod"
-                            required checked onChange={(e) => setPaymentMethod(e.target.value)}></input>
+                            required checked onChange={(e) => setpaymentMethod(e.target.value)}></input>
                         <label htmlFor="paypal">Paypal</label>
                     </div>
                 </div>
                 <div>
                     <div>
                         <input type="radio" id="stripe" value="Stripe" name="paymentMethod"
-                            required  onChange={(e) => setPaymentMethod(e.target.value)}></input>
+                            required  onChange={(e) => setpaymentMethod(e.target.value)}></input>
                         <label htmlFor="stripe">Stripe</label>
                     </div>
                 </div>

@@ -8,7 +8,7 @@ import Product from '../components/Product';
 import Rating from '../components/Rating';
 import { prices, ratings } from '../utils';
 
-export default function SearchScreen(props) {
+function SearchScreen(props) {
     const {
         name = 'all',
         category = 'all',
@@ -174,3 +174,5 @@ export default function SearchScreen(props) {
         </div>
     );
 }
+
+export default SearchScreen

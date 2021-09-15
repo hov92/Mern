@@ -29,7 +29,7 @@ function PlaceOrderScreen(props) {
             props.history.push(`/order${order._id}`);
             dispatch({ type: ORDER_CREATE_RESET });
         }
-    }, [order, props.history, success]);
+    }, [dispatch, order, props.history, success]);
     return (
         <div>
             <CheckoutSteps step1 step2 step3 step4></CheckoutSteps>

@@ -40,7 +40,7 @@ function ProductEditScreen(props) {
             setBrand(product.brand)
             setDescription(product.description)
         }
-    }, [product, dispatch, productId]);
+    }, [product, dispatch, productId, successUpdate, props.history]);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -56,7 +56,7 @@ function ProductEditScreen(props) {
         const file = e.target.files[0];
         const bodyFormData = new FormData()
         bodyFormData.append('image', file);
-        setLoadingUpload(true);
+        setloadingUpload(true);
         try {
             const {data} = await Axios.post('/api/uploads', bodyFormData, {
                 headers: {'Content-Type':'multipart/form-data',
