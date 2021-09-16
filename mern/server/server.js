@@ -46,7 +46,9 @@ connection.once("open", () => {
 
 const __dirname = path.resolve();
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
-app.get("/", (req, res) => res.status(200).send("I'm working"));
+app.use(express.static(path.join(__dirname, '/client/build')));
+app.get('*', (req, res)=> res.sendFile(path.join(__dirname, 'client/build/index.html')))
+// app.get("/", (req, res) => res.status(200).send("I'm working"));
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message })
