@@ -4,12 +4,14 @@ import { BrowserRouter, Link, Route } from 'react-router-dom'
 import { listProductCategories } from './actions/productActions';
 import { signout } from './actions/userActions';
 import AdminRoute from './components/AdminRoute'
+import ChatBox from './components/Chatbox';
 import LoadingBox from './components/LoadingBox';
 import MessageBox from './components/MessageBox';
 import PrivateRoute from './components/PrivateRoute';
 import SearchBox from './components/SearchBox';
 import SellerRoute from './components/SellerRoute';
 import CartScreen from './screens/CartScreen';
+import DashboardScreen from './screens/DashboardScreen';
 import HomeScreen from './screens/HomeScreen';
 import MapScreen from './screens/MapScreen';
 import OrderHistoryScreen from './screens/OrderHistoryScreen';
@@ -26,6 +28,7 @@ import SearchScreen from './screens/SearchScreen';
 import SellerScreen from './screens/SellerScreen';
 import ShippingAddressScreen from './screens/ShippingAddressScreen';
 import SigninScreen from './screens/SigninScreen';
+import SupportScreen from './screens/SupportScreen';
 import UserEditScreen from './screens/UserEditScreen';
 import UserListScreen from './screens/UserListScreen';
 
@@ -128,6 +131,10 @@ function App() {
                   <li>
                     <Link to="/userlist">Users</Link>
                   </li>
+                  <li>
+                    <Link to="/support">Support</Link>
+                  </li>
+
                 </ul>
               </div>
             )}
@@ -173,20 +180,25 @@ function App() {
           <Route path="/search/name/:name?" component={SearchScreen} exact></Route>
           <Route path="/search/category/:category" component={SearchScreen} exact></Route>
           <Route path="/search/category/:category/name/:name" component={SearchScreen} exact></Route>
-          <Route path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order" component={SearchScreen} exact></Route>
+          <Route path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber" component={SearchScreen} exact></Route>
           <PrivateRoute path="/profile" component={ProfileScreen}></PrivateRoute>
           <PrivateRoute path="/map" component={MapScreen}></PrivateRoute>
           <AdminRoute path='/productlist' component={ProductListScreen} exact></AdminRoute>
+          <AdminRoute path='/productlist/pageNumber/:pageNumber' component={ProductListScreen} exact></AdminRoute>
           <AdminRoute path='/orderlist' component={OrderListScreen} exact></AdminRoute>
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
+          <AdminRoute path="/dashboard" component={DashboardScreen}></AdminRoute>
+          <AdminRoute path="/support" component={SupportScreen}></AdminRoute>
           <AdminRoute path="/user/:id/edit" component={UserEditScreen}></AdminRoute>
           <SellerRoute path="/productlist/seller" component={ProductListScreen}></SellerRoute>
           <SellerRoute path="/orderlist/seller" component={OrderListScreen}></SellerRoute>
           <Route path="/" component={HomeScreen} exact></Route>
-
-
         </main>
-        <footer className="row center">All right reserved</footer>
+
+        <footer className="row center">
+          {userInfo && !userInfo.isAdmin && <ChatBox userInfo={userInfo} />}
+          <div>All right reserved</div>{''}
+          </footer>
       </div>
     </BrowserRouter>
 

@@ -35,9 +35,11 @@ export default function ProductScreen(props) {
         }
         dispatch(detailsProduct(productId));
     }, [dispatch, productId, successReviewCreate]);
+
     const addToCartHandler = () => {
         props.history.push(`/cart/${productId}?qty=${qty}`);
     };
+
     const submitHandler = (e) => {
         e.preventDefault();
         if (comment && rating) {
@@ -48,6 +50,7 @@ export default function ProductScreen(props) {
             alert('Please enter comment and rating');
         }
     };
+    
     return (
         <div>
             {loading ? (
