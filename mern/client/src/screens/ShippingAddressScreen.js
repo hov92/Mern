@@ -109,7 +109,7 @@ function ShippingAddressScreen(props) {
                 <div>
                     <label htmlFor="postalCode">Postal Code</label>
                     <input
-                        type="text"
+                        type="number"
                         id="postalCode"
                         placeholder="Enter postal code"
                         value={postalCode}
